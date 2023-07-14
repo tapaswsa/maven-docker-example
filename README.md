@@ -12,7 +12,7 @@ Using spring initializer to generate a demo app https://start.spring.io/
 ## Create a multi-stage build Dockerfile
 
 ```shell
-#
+
 # BUILD STAGE
 #
 FROM maven:3.6.0-jdk-11-slim AS build  
