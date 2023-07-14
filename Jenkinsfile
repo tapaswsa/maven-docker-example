@@ -1,4 +1,4 @@
-def BRANCH = 'master'
+def BRANCH = 'staging'
 
 pipeline {
     agent any
@@ -7,7 +7,7 @@ pipeline {
         stage ('Build') {
             when {
                 expression {
-                    "${BRANCH}" == 'master';
+                    "${BRANCH}" == 'staging';
                 }   
             }
             steps {
@@ -18,7 +18,7 @@ pipeline {
         stage ('Test') {
             when {
                 expression {
-                    "${BRANCH}" == 'master';
+                    "${BRANCH}" == 'production';
                 }   
             }
             steps {
@@ -28,7 +28,7 @@ pipeline {
         stage ('Deploy') {
             when {
                 expression {
-                    "${BRANCH}" == 'production';
+                    "${BRANCH}" == 'staging';
                 }   
             }
             steps {
