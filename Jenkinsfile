@@ -1,20 +1,16 @@
-def BRANCH = 'master'
-
 pipeline {
     agent any
     stages {
-        stage ('SCM') {
-            steps {
-               script {    
-                   git branch: "${BRANCH}", credentialsId: 'tapaswini-github-creds', url: 'https://github.com/tapaswsa/maven-docker-example.git'
-               } 
-            }
-        }
+        // stage ('SCM') {
+        //     steps {
+        //        script {    
+        //            git branch: "${BRANCH}", credentialsId: 'tapaswini-github-creds', url: 'https://github.com/tapaswsa/maven-docker-example.git'
+        //        } 
+        //     }
+        // }
         stage ('Build') {
             when {
-                expression {
-                    "${BRANCH}" == 'master';
-                }   
+                  branch 'master'             
             }
             steps {
               echo "Build"
@@ -23,9 +19,7 @@ pipeline {
         
         stage ('Test') {
             when {
-                expression {
-                    "${BRANCH}" == 'developer';
-                }   
+                  branch 'masterr'             
             }
             steps {
               echo "Test"
@@ -33,9 +27,7 @@ pipeline {
         }
         stage ('Deploy') {
             when {
-                expression {
-                    "${BRANCH}" == 'master';
-                }   
+                  branch 'master'             
             }
             steps {
                 echo "Deploy"
