@@ -39,7 +39,7 @@ pipeline {
     }
     post { 
         cleanup { 
-            echo "Clean up in post workspace"
+            echo "Clean up in post workspace after the job"
             cleanWs()
         }
     }
