@@ -1,40 +1,46 @@
-def BRANCH = 'staging'
-
 pipeline {
     agent any
     stages {
-
         stage ('Build') {
-            when {
-                expression {
-                    "${BRANCH}" == 'staging';
-                }   
-            }
             steps {
-              echo "Build"
+               echo "Build"
             }
         }
         
         stage ('Test') {
-            when {
-                expression {
-                    "${BRANCH}" == 'production';
-                }   
-            }
             steps {
-              echo "Test"
+               echo "Test"
             }
         }
-        stage ('Deploy') {
+        
+        stage ('Sonar Scan for Feature') {
             when {
-                expression {
-                    "${BRANCH}" == 'staging';
-                }   
+                branch "feature/*"
             }
-            steps {
-                echo "Deploy"
+	    steps {
+                echo "Sonar Scan for Feature" 
             }
         }
 
+        stage ('Sonar Scan for PR') {
+            when {
+                branch "PR*"
+            }
+	    steps {
+                echo "Sonar Scan for PR" 
+            }
+        }
+
+        stage ('Deploy') {
+            steps {
+                echo "Deploy" 
+            }
+        }
     }
-}
+    post { 
+        cleanup { 
+            echo "Clean up in post workspace"
+            cleanWs()
+        }
+    }
+}   
